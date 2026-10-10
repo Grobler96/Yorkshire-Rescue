@@ -8,3 +8,5 @@ Static site (plain HTML, CSS and JS, no build step; 3D hero, tilt cards and scro
 - Host on any static host (Netlify, Cloudflare Pages, GitHub Pages, etc.). URLs match the old WordPress site, so existing links and SEO carry over.
 - The header and footer are repeated in each `index.html`; update them in every page when changing nav or contact details.
 - The contact form opens the visitor's email app (mailto). To receive submissions directly, connect it to a form service such as Formspree or Netlify Forms.
+
+All links are relative, so the site works at a domain root and from a sub-folder such as `https://<user>.github.io/Yorkshire-Rescue/`.
