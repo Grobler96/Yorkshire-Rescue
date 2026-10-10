@@ -1,6 +1,6 @@
 # Yorkshire Accident Recovery & Rescue website
 
-Static site (plain HTML, CSS and JS, no build step) for https://yorkshirerecovery.co.uk
+Static site (plain HTML, CSS and JS, no build step; 3D hero, tilt cards and scroll animations are pure CSS/JS, all disabled for visitors who prefer reduced motion) for https://yorkshirerecovery.co.uk
 
 - Pages: `/`, `/services/` (plus 4 service pages), `/areas/`, `/about/`, `/contact/`
 - Shared styles: `assets/css/style.css`; menu and contact form: `assets/js/main.js`
