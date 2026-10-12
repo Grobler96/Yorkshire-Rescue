@@ -5,16 +5,30 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Contact Us | 24/7 Vehicle Recovery Bradford</title>
 <meta name="description" content="Call 07914 028283 for 24-hour vehicle recovery in Bradford and across Yorkshire, or send us a message.">
+<meta name="robots" content="index,follow,max-image-preview:large">
 <link rel="canonical" href="https://yorkshirerecovery.co.uk/contact/">
 <meta property="og:type" content="website">
+<meta property="og:site_name" content="Yorkshire Accident Recovery &amp; Rescue">
+<meta property="og:locale" content="en_GB">
 <meta property="og:title" content="Contact Us | 24/7 Vehicle Recovery Bradford">
 <meta property="og:description" content="Call 07914 028283 for 24-hour vehicle recovery in Bradford and across Yorkshire, or send us a message.">
 <meta property="og:url" content="https://yorkshirerecovery.co.uk/contact/">
-<meta property="og:image" content="https://yorkshirerecovery.co.uk/assets/img/truck-range-rover.jpg">
+<meta property="og:image" content="https://yorkshirerecovery.co.uk/assets/img/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Yorkshire Accident Recovery &amp; Rescue recovery truck carrying a Range Rover">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Contact Us | 24/7 Vehicle Recovery Bradford">
+<meta name="twitter:description" content="Call 07914 028283 for 24-hour vehicle recovery in Bradford and across Yorkshire, or send us a message.">
+<meta name="twitter:image" content="https://yorkshirerecovery.co.uk/assets/img/og-image.jpg">
 <meta name="theme-color" content="#16191d">
-<link rel="icon" href="../assets/img/favicon.png">
-<link rel="apple-touch-icon" href="../assets/img/favicon.png">
+<link rel="icon" href="../favicon.ico" sizes="48x48">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/icons/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../assets/icons/favicon-16.png">
+<link rel="apple-touch-icon" href="../assets/icons/apple-touch-icon.png">
+<link rel="manifest" href="../site.webmanifest">
 <link rel="stylesheet" href="../assets/css/style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://yorkshirerecovery.co.uk/"}, {"@type": "ListItem", "position": 2, "name": "Contact", "item": "https://yorkshirerecovery.co.uk/contact/"}]}</script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -37,7 +51,7 @@
 <div class="locate-copy"><span class="eyebrow">Roadside emergency?</span><h2>Not sure exactly where you are?</h2>
 <p>Tap the button and we'll work out your position so you can send it to our team in one tap. Your location stays on your phone until you choose to send it.</p></div>
 <div class="locate-ui">
-<button class="btn btn-primary" type="button" id="locate-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Share my location</button>
+<button class="btn btn-primary" type="button" id="locate-btn"><span class="spinner" aria-hidden="true"></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Share my location</button>
 <p class="locate-status" id="locate-status" role="status" aria-live="polite"></p>
 <div class="locate-actions" id="locate-actions" hidden>
 <a class="btn btn-light2" id="loc-sms" href="#">Text it to us</a>
@@ -56,27 +70,34 @@
 <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><div><strong>Location</strong>Unit 35, Rilston Street, Bradford BD7 2EA</div></li>
 <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg><div><strong>Opening hours</strong>Open 24 hours a day, 7 days a week</div></li>
 </ul>
-<iframe class="map" title="Map of Rilston Street, Bradford" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=Rilston+Street+Bradford+BD7+2EA&amp;output=embed"></iframe>
+<div class="map-ph" id="map-ph" data-src="https://www.google.com/maps?q=Rilston+Street+Bradford+BD7+2EA&amp;output=embed"><div><strong>Find us on the map</strong><p>Loading the map uses Google Maps, which may set cookies.</p><button class="btn btn-dark" type="button" id="map-load">Load map</button> <a href="https://www.google.com/maps/search/?api=1&amp;query=Rilston+Street+Bradford+BD7+2EA" target="_blank" rel="noopener">Open in Google Maps</a></div></div>
 </div>
 <div class="panel">
 <h2 style="font-size:1.5rem">Send us a message</h2>
 <p style="color:var(--muted)">Not an emergency? Tell us what you need and we'll get back to you. If you're stranded right now, please <a href="tel:+447914028283">call us</a>.</p>
-<form id="contact-form" action="mailto:info@yorkshirerecovery.co.uk" method="post" enctype="text/plain">
-<div class="row"><div><label for="name">Name *</label><input id="name" name="name" required autocomplete="name"></div>
-<div><label for="phone">Phone *</label><input id="phone" name="phone" type="tel" required autocomplete="tel"></div></div>
-<label for="service">What do you need?</label>
-<select id="service" name="service"><option>Breakdown recovery</option><option>Accident recovery</option><option>Light commercial recovery</option><option>Vehicle storage</option><option>Something else</option></select>
-<label for="location">Where is the vehicle? (town or postcode)</label><input id="location" name="location">
-<label for="message">Details</label><textarea id="message" name="message" placeholder="Vehicle make and model, and what has happened"></textarea>
-<button class="btn btn-primary" type="submit" style="width:100%">Send message</button>
-<p class="form-note">This opens your email app with your message ready to send to info@yorkshirerecovery.co.uk.</p>
-</form></div>
+<form id="contact-form" novalidate data-thanks="../thank-you/">
+<div id="form-summary" class="form-summary" role="alert" tabindex="-1" hidden></div>
+<div class="row">
+<div class="field"><label for="name">Name *</label><input id="name" name="name" autocomplete="name" required aria-describedby="name-err"><span class="err" id="name-err"></span></div>
+<div class="field"><label for="phone">Phone *</label><input id="phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" required aria-describedby="phone-err"><span class="err" id="phone-err"></span></div>
+</div>
+<div class="field"><label for="email">Email (optional)</label><input id="email" name="email" type="email" autocomplete="email" aria-describedby="email-err"><span class="err" id="email-err"></span></div>
+<div class="field"><label for="service">What do you need?</label>
+<select id="service" name="service"><option>Breakdown recovery</option><option>Accident recovery</option><option>Light commercial recovery</option><option>Vehicle storage</option><option>Something else</option></select></div>
+<div class="field"><label for="location">Where is the vehicle? (town or postcode)</label><input id="location" name="location"></div>
+<div class="field"><label for="message">Details</label><textarea id="message" name="message" placeholder="Vehicle make and model, and what has happened"></textarea></div>
+<div class="hp" aria-hidden="true"><label>Leave this field empty<input name="website" tabindex="-1" autocomplete="off"></label></div>
+<button class="btn btn-primary" type="submit" id="form-submit" style="width:100%"><span class="spinner" aria-hidden="true"></span><span class="btn-label">Send message</span></button>
+<p class="form-note" id="form-note">We only use your details to reply to your enquiry. See our <a href="../privacy/">privacy policy</a>.</p>
+</form>
+<div class="form-success" id="form-success" role="status" tabindex="-1" hidden></div>
+</div>
 </div></section>
 </main>
 <footer class="footer"><div class="wrap">
 <div class="cols">
 <div><img src="../assets/img/logo.png" alt="Yorkshire Accident Recovery &amp; Rescue" width="105" height="64">
-<p>Family-run vehicle recovery based in Bradford, covering Bradford, Leeds, Halifax, Huddersfield and across Yorkshire. Fully insured.</p></div>
+<p>Family-run vehicle recovery based in Bradford, covering <a href="../areas/bradford/">Bradford</a>, <a href="../areas/leeds/">Leeds</a>, <a href="../areas/halifax/">Halifax</a>, <a href="../areas/huddersfield/">Huddersfield</a> and across Yorkshire. Fully insured.</p></div>
 <div><h3>Services</h3><ul><li><a href="../services/accident-recovery/">Accident Recovery</a></li><li><a href="../services/breakdown-recovery/">Breakdown Recovery</a></li><li><a href="../services/light-commercial-recovery/">Light Commercial Recovery</a></li><li><a href="../services/vehicle-storage/">Vehicle Storage</a></li></ul></div>
 <div><h3>Company</h3><ul><li><a href="../about/">About us</a></li><li><a href="../areas/">Areas covered</a></li><li><a href="../contact/">Contact</a></li><li><a href="https://www.facebook.com/yorkshireaccidentrecovery/" rel="noopener" target="_blank">Facebook</a></li></ul></div>
 <div><h3>Contact</h3><ul>
@@ -84,9 +105,15 @@
 <li><a href="mailto:info@yorkshirerecovery.co.uk">info@yorkshirerecovery.co.uk</a></li>
 <li>Unit 35, Rilston Street, Bradford BD7 2EA</li></ul></div>
 </div>
-<div class="legal"><span>&copy; 2026 Yorkshire Accident Recovery &amp; Rescue. All rights reserved.</span><span>Bradford &middot; Leeds &middot; Halifax &middot; Huddersfield</span></div>
+<div class="legal"><span>&copy; 2026 Yorkshire Accident Recovery &amp; Rescue. All rights reserved.</span><span class="legal-links"><a href="../privacy/">Privacy</a><a href="../terms/">Terms</a><button type="button" class="linklike" id="cookie-settings">Cookie settings</button></span></div>
 </div></footer>
 <div class="callbar"><a class="call" href="tel:+447914028283">Call now</a><a class="msg" href="../contact/">Request help</a></div>
+<div class="consent" id="consent" role="region" aria-label="Cookie preferences" hidden>
+<p id="consent-text"></p>
+<div class="consent-btns"><button class="btn btn-primary" type="button" id="consent-accept">Accept optional cookies</button><button class="btn btn-dark" type="button" id="consent-reject">Reject optional cookies</button></div>
+<a href="../privacy/#cookies">Cookie policy</a>
+</div>
+<script src="../assets/js/config.js"></script>
 <script src="../assets/js/main.js"></script>
 </body>
 </html>

@@ -1,0 +1,22 @@
+{
+  "name": "Yorkshire Accident Recovery & Rescue",
+  "short_name": "Yorkshire Recovery",
+  "description": "24/7 vehicle recovery in Bradford and across Yorkshire",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#16191d",
+  "theme_color": "#16191d",
+  "icons": [
+    {
+      "src": "assets/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

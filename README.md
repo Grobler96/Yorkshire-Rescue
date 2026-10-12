@@ -10,3 +10,10 @@ Static site (plain HTML, CSS and JS, no build step; 3D hero, tilt cards and scro
 - The contact form opens the visitor's email app (mailto). To receive submissions directly, connect it to a form service such as Formspree or Netlify Forms.
 
 All links are relative, so the site works at a domain root and from a sub-folder such as `https://<user>.github.io/Yorkshire-Rescue/`.
+
+## Settings (assets/js/config.js)
+- `analyticsId`: Google Analytics 4 ID (e.g. `G-ABC123XYZ9`). Loads only after a visitor accepts cookies. The cookie banner then appears site-wide.
+- `formEndpoint`: URL from a form service such as Formspree. Enquiries are emailed to you and visitors land on `/thank-you/`. Leave empty to fall back to the visitor's email app.
+
+## SEO and compliance
+Per-page titles and descriptions, canonical URLs, Open Graph/Twitter cards (`assets/img/og-image.jpg`), LocalBusiness, Service, FAQ and Breadcrumb structured data, `sitemap.xml`, `robots.txt`, favicons and web manifest, a custom `404.html`, privacy and terms pages, and a consent-gated cookie banner (Google Maps and analytics only load after consent).
