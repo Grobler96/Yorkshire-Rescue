@@ -57,7 +57,7 @@
         var el = e.target; io.unobserve(el); el.classList.add('in');
         setTimeout(function () { el.removeAttribute('data-r'); el.classList.remove('in'); }, 1300);
       });
-    }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
+    }, { threshold: 0, rootMargin: '0px 0px -6% 0px' });
     targets.forEach(function (el) {
       var sib = el.parentElement ? Array.prototype.indexOf.call(el.parentElement.children, el) : 0;
       el.setAttribute('data-r', el.matches('.split > :first-child') ? 'left' : el.matches('.split > :last-child') ? 'right' : '');
@@ -127,7 +127,7 @@
     function say(t, bad) { st.textContent = t; st.classList.toggle('err', !!bad); }
     lb.addEventListener('click', function () {
       if (!navigator.geolocation) { say('Your browser can\'t share location. Please call us instead.', true); return; }
-      acts.hidden = true; lb.disabled = true; say('Finding you…');
+      acts.hidden = true; lb.disabled = true; lb.classList.add('loading'); say('Finding you…');
       navigator.geolocation.getCurrentPosition(function (pos) {
         var la = pos.coords.latitude.toFixed(6), lo = pos.coords.longitude.toFixed(6), acc = Math.round(pos.coords.accuracy);
         link = 'https://www.google.com/maps?q=' + la + ',' + lo;
@@ -135,10 +135,10 @@
         d.getElementById('loc-sms').href = 'sms:' + NUM + '?&body=' + encodeURIComponent(msg);
         d.getElementById('loc-mail').href = 'mailto:' + MAIL + '?subject=' + encodeURIComponent('Recovery needed: my location') + '&body=' + encodeURIComponent(msg);
         d.getElementById('loc-map').href = link;
-        acts.hidden = false; lb.disabled = false;
+        acts.hidden = false; lb.disabled = false; lb.classList.remove('loading');
         say('Got it, accurate to about ' + acc + ' m. Tap "Text it to us" to send it, then call if you can.');
       }, function (err) {
-        lb.disabled = false;
+        lb.disabled = false; lb.classList.remove('loading');
         say(err.code === 1 ? 'Location is blocked. Allow location access for this site in your browser settings, or just call us.' : 'We couldn\'t get your position. Please call us and describe where you are.', true);
       }, { enableHighAccuracy: true, timeout: 15000, maximumAge: 30000 });
     });
@@ -148,12 +148,94 @@
     });
   }
 
-  // Contact form -> mailto
+  var CFG = window.YR || {};
+
+  // ----- Cookie consent (optional cookies are blocked until you accept) -----
+  var KEY = 'yr-consent', banner = d.getElementById('consent'), mapPh = d.getElementById('map-ph');
+  function getC() { try { var v = JSON.parse(localStorage.getItem(KEY)); if (v && v.t && Date.now() - v.t < 31536000000) return v.v; } catch (e) {} return null; }
+  function setC(v) { try { localStorage.setItem(KEY, JSON.stringify({ v: v, t: Date.now() })); } catch (e) {} }
+  function loadGA() {
+    if (!CFG.analyticsId || window.__yrga) return; window.__yrga = 1;
+    var sc = d.createElement('script'); sc.async = true; sc.src = 'https://www.googletagmanager.com/gtag/js?id=' + encodeURIComponent(CFG.analyticsId); d.head.appendChild(sc);
+    window.dataLayer = window.dataLayer || []; window.gtag = function () { dataLayer.push(arguments); };
+    gtag('js', new Date()); gtag('config', CFG.analyticsId, { anonymize_ip: true });
+  }
+  function clearGA() {
+    d.cookie.split(';').forEach(function (c) {
+      var n = c.split('=')[0].trim();
+      if (/^_ga/.test(n)) { var x = n + '=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/'; d.cookie = x; d.cookie = x + '; domain=' + location.hostname; }
+    });
+  }
+  function loadMap() {
+    var ph = d.getElementById('map-ph'); if (!ph) return;
+    var f = d.createElement('iframe'); f.className = 'map'; f.title = 'Map of Rilston Street, Bradford'; f.loading = 'lazy';
+    f.referrerPolicy = 'no-referrer-when-downgrade'; f.src = ph.dataset.src; ph.replaceWith(f);
+  }
+  function applyC(v) { if (v === 'all') { loadGA(); loadMap(); } else { clearGA(); } }
+  function showBanner() {
+    if (!banner) return;
+    d.getElementById('consent-text').textContent = CFG.analyticsId
+      ? 'We use optional cookies to load Google Maps and to count visits with anonymous analytics. The site works fine without them.'
+      : 'We use an optional Google Maps embed, which may set cookies. The rest of the site works without cookies.';
+    banner.hidden = false;
+  }
+  if (banner) {
+    var cur = getC();
+    if (cur) applyC(cur);
+    else if (CFG.analyticsId || mapPh) showBanner();
+    d.getElementById('consent-accept').addEventListener('click', function () { setC('all'); applyC('all'); banner.hidden = true; });
+    d.getElementById('consent-reject').addEventListener('click', function () { setC('essential'); applyC('essential'); banner.hidden = true; });
+    var cs = d.getElementById('cookie-settings');
+    if (cs) cs.addEventListener('click', showBanner);
+  }
+  var ml = d.getElementById('map-load');
+  if (ml) ml.addEventListener('click', loadMap);
+
+  // ----- Contact form: validation, loading, error and success states -----
   var form = d.getElementById('contact-form');
-  if (form) form.addEventListener('submit', function (e) {
-    e.preventDefault();
+  if (form) {
+    var summary = d.getElementById('form-summary'), btn = d.getElementById('form-submit'), note = d.getElementById('form-note'), ok = d.getElementById('form-success');
+    var label = btn.querySelector('.btn-label'), MAIL = 'info@yorkshirerecovery.co.uk', TEL = '07914 028283';
+    if (!CFG.formEndpoint) note.insertAdjacentHTML('afterbegin', 'This opens your email app with your message ready to send. ');
     var f = form.elements;
-    var body = ['Name: ' + f.name.value, 'Phone: ' + f.phone.value, 'Service: ' + f.service.value, 'Location: ' + f.location.value, '', f.message.value].join('\n');
-    location.href = 'mailto:info@yorkshirerecovery.co.uk?subject=' + encodeURIComponent('Website enquiry: ' + f.service.value) + '&body=' + encodeURIComponent(body);
-  });
+    function setErr(el, msg) {
+      var e = d.getElementById(el.id + '-err'); if (e) e.textContent = msg || '';
+      el.setAttribute('aria-invalid', msg ? 'true' : 'false'); el.classList.toggle('invalid', !!msg);
+    }
+    function check(el) {
+      var v = el.value.trim(), msg = '';
+      if (el === f.name && v.length < 2) msg = 'Please enter your name.';
+      if (el === f.phone && !/^(\+44|0044|0)\d{9,10}$/.test(v.replace(/[\s()-]/g, ''))) msg = v ? 'That doesn\'t look like a UK phone number. Example: 07914 028283.' : 'Please enter a phone number so we can call you back.';
+      if (el === f.email && v && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v)) msg = 'Please enter a valid email address, or leave it blank.';
+      setErr(el, msg); return msg ? [el, msg] : null;
+    }
+    [f.name, f.phone, f.email].forEach(function (el) {
+      el.addEventListener('blur', function () { if (el.value || el.classList.contains('invalid')) check(el); });
+      el.addEventListener('input', function () { if (el.classList.contains('invalid')) check(el); });
+    });
+    function showSummary(html) { summary.innerHTML = html; summary.hidden = false; summary.focus(); }
+    function loading(on) { btn.disabled = on; btn.classList.toggle('loading', on); label.textContent = on ? 'Sending…' : 'Send message'; form.setAttribute('aria-busy', on ? 'true' : 'false'); }
+    form.addEventListener('submit', function (e) {
+      e.preventDefault(); summary.hidden = true; ok.hidden = true;
+      if (f.website.value) { form.hidden = true; ok.textContent = 'Thanks, your message has been sent.'; ok.hidden = false; return; }
+      var errs = [f.name, f.phone, f.email].map(check).filter(Boolean);
+      if (errs.length) {
+        showSummary('Please fix ' + (errs.length > 1 ? 'these ' + errs.length + ' things' : 'this') + ' before sending:<ul>' + errs.map(function (x) { return '<li><a href="#' + x[0].id + '">' + x[1] + '</a></li>'; }).join('') + '</ul>');
+        errs[0][0].focus(); return;
+      }
+      var data = { name: f.name.value.trim(), phone: f.phone.value.trim(), email: f.email.value.trim(), service: f.service.value, location: f.location.value.trim(), message: f.message.value.trim() };
+      if (CFG.formEndpoint) {
+        loading(true);
+        var ctl = window.AbortController ? new AbortController() : null, timer = setTimeout(function () { if (ctl) ctl.abort(); }, 15000);
+        fetch(CFG.formEndpoint, { method: 'POST', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify(Object.assign({ _subject: 'Website enquiry: ' + data.service }, data)), signal: ctl ? ctl.signal : undefined })
+          .then(function (r) { clearTimeout(timer); if (!r.ok) throw new Error('bad'); location.href = form.dataset.thanks; })
+          .catch(function () { clearTimeout(timer); loading(false); showSummary('Sorry, we couldn\'t send your message. Please try again, or call us on <a href="tel:+447914028283">' + TEL + '</a>.'); });
+      } else {
+        var body = ['Name: ' + data.name, 'Phone: ' + data.phone, 'Email: ' + data.email, 'Service: ' + data.service, 'Location: ' + data.location, '', data.message].join('\n');
+        location.href = 'mailto:' + MAIL + '?subject=' + encodeURIComponent('Website enquiry: ' + data.service) + '&body=' + encodeURIComponent(body);
+        ok.innerHTML = '<strong>Almost done.</strong> Your email app should have opened with your message ready. Please press send there. If nothing opened, email us at <a href="mailto:' + MAIL + '">' + MAIL + '</a> or call <a href="tel:+447914028283">' + TEL + '</a>.';
+        ok.hidden = false; ok.focus();
+      }
+    });
+  }
 })();
