@@ -19,4 +19,4 @@ All links are relative, so the site works at a domain root and from a sub-folder
 Per-page titles and descriptions, canonical URLs, Open Graph/Twitter cards (`assets/img/og-image.jpg`), LocalBusiness, Service, FAQ and Breadcrumb structured data, `sitemap.xml`, `robots.txt`, favicons and web manifest, a custom `404.html`, privacy and terms pages, and a consent-gated cookie banner (Google Maps and analytics only load after consent).
 
 ## Hosting on Vercel
-Import the repo in Vercel with framework preset "Other" and no build command. `vercel.json` adds a www to non-www redirect, security headers and image caching. Add `yorkshirerecovery.co.uk` and `www.yorkshirerecovery.co.uk` under Settings > Domains and use the DNS records Vercel shows.
+Import the repo in Vercel with framework preset "Other" and no build command. `vercel.json` adds security headers and image caching. The main address is `https://www.yorkshirerecovery.co.uk`; Vercel redirects the plain domain to it (set under Settings > Domains).
