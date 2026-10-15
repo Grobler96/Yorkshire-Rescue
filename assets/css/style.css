@@ -446,3 +446,7 @@ input.invalid, select.invalid, textarea.invalid { border-color: #b3001b; backgro
 a.area { display: block; text-decoration: none; color: inherit; }
 a.area .more { display: inline-block; margin-top: 10px; font-weight: 700; color: var(--red); font-size: .9rem; }
 .faq { margin-top: 12px; }
+
+/* Footer credit */
+.footer .credit { flex-basis: 100%; text-align: center; font-size: .8rem; opacity: .8; padding-top: 4px; }
+.footer .credit a { color: #fff; font-weight: 600; }
