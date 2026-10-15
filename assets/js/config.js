@@ -4,5 +4,5 @@
                   Leave empty to use the visitor's email app instead. */
 window.YR = {
   analyticsId: '',
-  formEndpoint: ''
+  formEndpoint: 'https://formspree.io/f/mdeayepv'
 };
